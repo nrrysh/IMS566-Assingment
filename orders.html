@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Flour Atelier - Bakery Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E0BBE4;
+            --secondary-color: #DCD0FF;
+            --accent-color: #FFD6E0;
+            --light-color: #FFF0F5;
+            --text-color: #5A3D5C;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-color) 10%, var(--accent-color) 30%, var(--primary-color) 70%, var(--secondary-color) 100%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            padding-top: 70px;
+        }
+        
+        /* Top Navigation Bar */
+        .top-navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1rem;
+        }
+        
+        .top-navbar .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .top-navbar .nav-link {
+            color: var(--text-color);
+            border-radius: 8px;
+            margin: 0 0.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .top-navbar .nav-link:hover, 
+        .top-navbar .nav-link.active {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Card Styles */
+        .card-bakery {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+        }
+        
+        .card-bakery:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-bakery {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-bakery:hover {
+            background-color: #D4A0D9;
+            border-color: #D4A0D9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline-bakery {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-bakery:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            padding: 30px 20px;
+        }
+        
+        .page-header {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        /* Status Badge Colors */
+        .badge-pending {
+            background-color: #FFC107 !important;
+            color: #212529 !important;
+        }
+        
+        .badge-processing {
+            background-color: #0D6EFD !important;
+            color: white !important;
+        }
+        
+        .badge-completed {
+            background-color: #198754 !important;
+            color: white !important;
+        }
+        
+        .badge-cancelled {
+            background-color: #DC3545 !important;
+            color: white !important;
+        }
+        
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .order-row {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .order-row:hover {
+            background-color: rgba(224, 187, 228, 0.1);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(224, 187, 228, 0.25);
+        }
+        
+        .btn-outline-secondary {
+            border-radius: 8px;
+            color: var(--text-color);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .pagination .page-link {
+            color: var(--text-color);
+        }
+        
+        .pagination .page-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .page-item.disabled .page-link {
+            color: #6c757d;
+        }
+        
+        footer {
+            background-color: rgba(255, 246, 252, 0.95);
+            color: #A26769;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #FFD6E0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top top-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/6951/6951756.png" class="logo-img">
+                De Flour Atelier
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="orders.html">
+                            Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers.html">
+                            Customers
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.html">
+                            Log Out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+            <h1 class="h2">Order Management</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
+                </div>
+                <button class="btn btn-sm btn-bakery" id="newOrderBtn">
+                    New Order
+                </button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="orderSearch" placeholder="Search orders...">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="statusFilter">
+                    <option selected value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="date" class="form-control" id="dateFrom">
+            </div>
+            <div class="col-md-2">
+                <input type="date" class="form-control" id="dateTo">
+            </div>
+        </div>
+
+        <div class="card card-bakery">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="order-row" data-order-id="BK-1001">
+                                <td>#BK-1001</td>
+                                <td class="order-customer">Joshua Hong</td>
+                                <td>3</td>
+                                <td>$24.50</td>
+                                <td class="order-status"><span class="badge badge-completed">Completed</span></td>
+                                <td class="order-date">2025-06-02</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary btn-view-order">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btn-print-order">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="order-row" data-order-id="BK-1002">
+                                <td>#BK-1002</td>
+                                <td class="order-customer">Seungcheol Choi</td>
+                                <td>5</td>
+                                <td>$38.75</td>
+                                <td class="order-status"><span class="badge badge-processing">Processing</span></td>
+                                <td class="order-date">2025-06-05</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary btn-view-order">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btn-print-order">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="order-row" data-order-id="BK-1003">
+                                <td>#BK-1003</td>
+                                <td class="order-customer">Hoshi Kwon</td>
+                                <td>2</td>
+                                <td>$12.00</td>
+                                <td class="order-status"><span class="badge badge-cancelled">Cancelled</span></td>
+                                <td class="order-date">2025-06-14</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary btn-view-order">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btn-print-order">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="order-row" data-order-id="BK-1004">
+                                <td>#BK-1004</td>
+                                <td class="order-customer">Xu Minghao</td>
+                                <td>2</td>
+                                <td>$12.00</td>
+                                <td class="order-status"><span class="badge badge-pending">Pending</span></td>
+                                <td class="order-date">2025-06-17</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary btn-view-order">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btn-print-order">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="order-row" data-order-id="BK-1005">
+                                <td>#BK-1005</td>
+                                <td class="order-customer">Jihoon Lee</td>
+                                <td>2</td>
+                                <td>$12.00</td>
+                                <td class="order-status"><span class="badge badge-pending">Pending</span></td>
+                                <td class="order-date">2025-06-20</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary btn-view-order">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary btn-print-order">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 De Flour Atelier. All rights reserved</p>
+        </div>
+    </footer>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Order search functionality
+            const searchInput = document.getElementById('orderSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(filterOrders, 300));
+            }
+            
+            // Status filter
+            const statusFilter = document.getElementById('statusFilter');
+            if (statusFilter) {
+                statusFilter.addEventListener('change', filterOrders);
+            }
+            
+            // Date range filter
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            if (dateFrom && dateTo) {
+                dateFrom.addEventListener('change', filterOrders);
+                dateTo.addEventListener('change', filterOrders);
+                
+                // Initialize date pickers with default values
+                const today = new Date();
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(today.getDate() - 7);
+                
+                dateFrom.valueAsDate = oneWeekAgo;
+                dateTo.valueAsDate = today;
+            }
+            
+            // Order row click
+            document.querySelectorAll('.order-row').forEach(row => {
+                row.addEventListener('click', function() {
+                    const orderId = this.dataset.orderId;
+                    viewOrderDetails(orderId);
+                });
+            });
+            
+            // View order buttons
+            document.querySelectorAll('.btn-view-order').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const orderId = this.closest('.order-row').dataset.orderId;
+                    viewOrderDetails(orderId);
+                });
+            });
+            
+            // Print order buttons
+            document.querySelectorAll('.btn-print-order').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const orderId = this.closest('.order-row').dataset.orderId;
+                    printOrder(orderId);
+                });
+            });
+            
+            // New order button
+            const newOrderBtn = document.getElementById('newOrderBtn');
+            if (newOrderBtn) {
+                newOrderBtn.addEventListener('click', createNewOrder);
+            }
+        });
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function filterOrders() {
+            const searchTerm = document.getElementById('orderSearch').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            
+            document.querySelectorAll('.order-row').forEach(row => {
+                const id = row.dataset.orderId.toLowerCase();
+                const customer = row.querySelector('.order-customer').textContent.toLowerCase();
+                const orderStatus = row.querySelector('.order-status').textContent.toLowerCase();
+                const orderDate = row.querySelector('.order-date').textContent;
+                
+                const matchesSearch = id.includes(searchTerm) || customer.includes(searchTerm);
+                const matchesStatus = status === 'all' || orderStatus === status.toLowerCase();
+                const matchesDate = (!dateFrom || orderDate >= dateFrom) && (!dateTo || orderDate <= dateTo);
+                
+                if (matchesSearch && matchesStatus && matchesDate) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function viewOrderDetails(orderId) {
+            // In a real app, this would fetch order details from an API
+            console.log('Viewing order details:', orderId);
+            window.location.href = `order-details.html?id=${orderId}`;
+        }
+
+        function printOrder(orderId) {
+            // Show loading state
+            const btn = document.querySelector(`.order-row[data-order-id="${orderId}"] .btn-print-order`);
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            
+            // Simulate print preparation
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                
+                // In a real app, this would open a print dialog with order details
+                console.log('Printing order:', orderId);
+                showToast('Print dialog opened', 'info');
+            }, 1000);
+        }
+
+        function createNewOrder() {
+            // In a real app, this would open a new order form
+            console.log('Creating new order');
+            window.location.href = 'new-order.html';
+        }
+
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastEl = document.createElement('div');
+            
+            toastEl.className = `toast align-items-center text-white bg-${type} border-0`;
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            
+            toastEl.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toastEl);
+            
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+            
+            // Remove toast after it hides
+            toastEl.addEventListener('hidden.bs.toast', function() {
+                toastEl.remove();
+            });
+        }
+    </script>
+</body>
+</html>

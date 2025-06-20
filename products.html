@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Flour Atelier - Our Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E0BBE4;
+            --secondary-color: #DCD0FF;
+            --accent-color: #FFD6E0;
+            --light-color: #FFF0F5;
+            --text-color: #5A3D5C;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-color) 10%, var(--accent-color) 30%, var(--primary-color) 70%, var(--secondary-color) 100%);
+            background-attachment: fixed;
+            color: var(--text-color);
+        }
+        
+        .top-navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1rem;
+        }
+        
+        .top-navbar .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .top-navbar .nav-link {
+            color: var(--text-color);
+            border-radius: 8px;
+            margin: 0 0.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+        
+        .top-navbar .nav-link:hover, 
+        .top-navbar .nav-link.active {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        .card-bakery {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+        }
+        
+        .card-bakery:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bg-bakery {
+            background-color: var(--primary-color);
+        }
+        
+        .btn-bakery {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-bakery:hover {
+            background-color: #D4A0D9;
+            border-color: #D4A0D9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline-bakery {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-bakery:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            padding-top: 30px;
+        }
+        
+        .page-header {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-bakery:hover .product-img {
+            transform: scale(1.03);
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        .badge.bg-success {
+            background-color: rgba(40, 167, 69, 0.2) !important;
+            color: #28a745;
+        }
+        
+        .badge.bg-warning {
+            background-color: rgba(255, 193, 7, 0.2) !important;
+            color: #ffc107;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(224, 187, 228, 0.25);
+        }
+        
+        .btn-outline-secondary {
+            border-radius: 8px;
+            color: var(--text-color);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .border-bottom {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .toast {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            background-color: rgba(255, 246, 252, 0.95);
+            color: #A26769;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #FFD6E0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Pagination styles */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .page-link {
+            color: var(--text-color);
+        }
+
+        .page-link:hover {
+            color: var(--primary-color);
+        }
+
+        .page-item.disabled .page-link {
+            color: #6c757d;
+        }
+        
+        /* Adjust main content padding to account for fixed navbar */
+        body {
+            padding-top: 70px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top top-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/6951/6951756.png" class="logo-img">
+                De Flour Atelier
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">
+                            Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers.html">
+                            Customers
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.html">
+                            Log Out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid main-content">
+        <div class="row">
+            <main class="col-12 px-md-4">
+                <div class="page-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                    <h1 class="h2">Product Catalog</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button class="btn btn-sm btn-bakery" id="addProductBtn" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            Add Product
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="productSearch" placeholder="Search products...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="categoryFilter">
+                            <option selected value="all">All Categories</option>
+                            <option value="bread">Bread</option>
+                            <option value="pastry">Pastries</option>
+                            <option value="cake">Cakes</option>
+                            <option value="cookie">Cookies</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="sortProducts">
+                            <option selected value="name-asc">Sort by</option>
+                            <option value="name-asc">Name (A-Z)</option>
+                            <option value="name-desc">Name (Z-A)</option>
+                            <option value="price-asc">Price (Low-High)</option>
+                            <option value="price-desc">Price (High-Low)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row products-container">
+                    <!-- Product cards will be loaded here dynamically -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="pagination">
+                        </ul>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productCategory" class="form-label">Category</label>
+                            <select class="form-select" id="productCategory" required>
+                                <option value="">Select category</option>
+                                <option value="bread">Bread</option>
+                                <option value="pastry">Pastry</option>
+                                <option value="cake">Cake</option>
+                                <option value="cookie">Cookie</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="productPrice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productStock" class="form-label">Stock Quantity</label>
+                            <input type="number" class="form-control" id="productStock" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productImage" class="form-label">Image URL</label>
+                            <input type="text" class="form-control" id="productImage">
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveProductBtn">Save Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Modal -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this product? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteProduct">Delete Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 De Flour Atelier. All rights reserved</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Butter Bun",
+                category: "bread",
+                price: 3.99,
+                stock: 12,
+                image: "butterbun.jpg",
+                description: "A soft, fluffy bun with a rich buttery flavor."
+            },
+            {
+                id: 2,
+                name: "Raisin Bun",
+                category: "pastry",
+                price: 3.50,
+                stock: 16,
+                image: "raisinbun.jpg",
+                description: "A soft bun filled with sweet, chewy raisins."
+            },
+            {
+                id: 3,
+                name: "Multigrain Loaf",
+                category: "bread",
+                price: 4.50,
+                stock: 4,
+                image: "multigrainloaf.jpg",
+                description: "A hearty loaf made with a blend of wholesome grains."
+            },
+            {
+                id: 4,
+                name: "Chocolate Loaf",
+                category: "bread",
+                price: 5.50,
+                stock: 2,
+                image: "chocloaf.jpg",
+                description: "A rich, soft loaf swirled with chocolate flavor."
+            },
+            {
+                id: 5,
+                name: "Wholemeal Loaf",
+                category: "bread",
+                price: 4.50,
+                stock: 13,
+                image: "wholemealloaf.jpg",
+                description: "A dense, hearty loaf made with wholemeal flour for a nutty flavor and added fiber."
+            },
+            {
+                id: 6,
+                name: "Apple Strudel",
+                category: "pastry",
+                price: 2.50,
+                stock: 11,
+                image: "applestrudel.jpg",
+                description: "A flaky pastry filled with spiced apples and a hint of sweetness."
+            },
+            {
+                id: 7,
+                name: "Börek",
+                category: "pastry",
+                price: 1.99,
+                stock: 14,
+                image: "Börek.jpg",
+                description: "A savory, flaky pastry filled with cheese, meat, or vegetables, popular in Middle Eastern and Balkan cuisines."
+            },
+            {
+                id: 8,
+                name: "Cannoli Siciliani",
+                category: "pastry",
+                price: 1.50,
+                stock: 12,
+                image: "cannolisiciliani.jpg",
+                description: "A crispy pastry shell filled with sweet, creamy ricotta — a classic Sicilian dessert."
+            },
+            {
+                id: 9,
+                name: "Chatti Pathiri",
+                category: "pastry",
+                price: 3.50,
+                stock: 1,
+                image: "chattipathiri.jpg",
+                description: "A layered Malabar pastry made with thin crepes, sweet or savory fillings, and rich spices."
+            },
+            {
+                id: 10,
+                name: "Croissant",
+                category: "pastry",
+                price: 2.99,
+                stock: 3,
+                image: "croissant.jpg",
+                description: "A light, flaky pastry with a buttery, golden crust."
+            },
+            {
+                id: 11,
+                name: "Sponge Cake",
+                category: "cake",
+                price: 3.99,
+                stock: 15,
+                image: "spongecake.jpg",
+                description: "A light, airy cake with a soft, fluffy texture."
+            },
+            {
+                id: 12,
+                name: "Chocolate Cake",
+                category: "cake",
+                price: 5.99,
+                stock: 12,
+                image: "choccake.jpg",
+                description: "A rich, moist cake with deep chocolate flavor."
+            },
+            {
+                id: 13,
+                name: "Red Velvet Cake",
+                category: "cake",
+                price: 6.99,
+                stock: 14,
+                image: "redvelvetcake.jpg",
+                description: "A soft, moist cake with a hint of cocoa and a vibrant red hue, typically paired with cream cheese frosting."
+            },
+            {
+                id: 14,
+                name: "Carrot Cake",
+                category: "cake",
+                price: 6.99,
+                stock: 11,
+                image: "carrotcake.jpg",
+                description: "A moist, spiced cake made with grated carrots, often topped with cream cheese frosting."
+            },
+            {
+                id: 15,
+                name: "Strawberry Cheesecake",
+                category: "cake",
+                price: 6.99,
+                stock: 2,
+                image: "strawberrycheesecake.jpg",
+                description: "A creamy cheesecake topped with sweet, juicy strawberries on a buttery crust."
+            },
+            {
+                id: 16,
+                name: "Biscotti",
+                category: "cookie",
+                price: 0.50,
+                stock: 4,
+                image: "biscotti.jpg",
+                description: "A crunchy, twice-baked Italian cookie, perfect for dipping in coffee or tea."
+            },
+            {
+                id: 17,
+                name: "Black and White Cookie",
+                category: "cookie",
+                price: 2.50,
+                stock: 2,
+                image: "blackwhitecookie.jpg",
+                description: "A soft, cake-like cookie topped with half chocolate and half vanilla icing."
+            },
+            {
+                id: 18,
+                name: "Spritzgebäck",
+                category: "cookie",
+                price: 0.99,
+                stock: 12,
+                image: "Spritzgebäck.jpg",
+                description: "A crisp, buttery German cookie often shaped with a cookie press and enjoyed during the holidays."
+            },
+            {
+                id: 19,
+                name: "Chocolate Chip Cookie",
+                category: "cookie",
+                price: 1.99,
+                stock: 5,
+                image: "chochipcookie.jpg",
+                description: "A soft or crunchy cookie loaded with sweet chocolate chips."
+            },
+            {
+                id: 20,
+                name: "Peanut Butter Blossom",
+                category: "cookie",
+                price: 0.99,
+                stock: 15,
+                image: "pbblossoms.jpg",
+                description: "A soft, chewy peanut butter cookie with a rich peanut flavor, often topped with a chocolate candy or kiss in the center."
+            }
+        ];
+
+        // Pagination variables
+        const itemsPerPage = 6;
+        let currentPage = 1;
+        let filteredProducts = [...products];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial load
+            renderProducts();
+            setupPagination();
+
+            // Product search functionality
+            const searchInput = document.getElementById('productSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(filterProducts, 300));
+            }
+            
+            // Category filter
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', filterProducts);
+            }
+            
+            // Sort dropdown
+            const sortDropdown = document.getElementById('sortProducts');
+            if (sortDropdown) {
+                sortDropdown.addEventListener('change', sortProducts);
+            }
+            
+            // Save product button
+            const saveProductBtn = document.getElementById('saveProductBtn');
+            if (saveProductBtn) {
+                saveProductBtn.addEventListener('click', saveProduct);
+            }
+        });
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || product.category === category;
+                
+                return matchesSearch && matchesCategory;
+            });
+
+            currentPage = 1;
+            renderProducts();
+            setupPagination();
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sortProducts').value;
+            
+            filteredProducts.sort((a, b) => {
+                switch(sortBy) {
+                    case 'name-asc':
+                        return a.name.localeCompare(b.name);
+                    case 'name-desc':
+                        return b.name.localeCompare(a.name);
+                    case 'price-asc':
+                        return a.price - b.price;
+                    case 'price-desc':
+                        return b.price - a.price;
+                    default:
+                        return 0;
+                }
+            });
+
+            currentPage = 1;
+            renderProducts();
+            setupPagination();
+        }
+
+        function renderProducts() {
+            const container = document.querySelector('.products-container');
+            container.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            productsToShow.forEach(product => {
+                const productCard = createProductCard(product);
+                container.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 mb-4';
+            
+            col.innerHTML = `
+                <div class="card card-bakery h-100 product-card" data-product-id="${product.id}" data-category="${product.category}" data-price="${product.price}">
+                    <img src="${product.image}" class="card-img-top product-img" alt="${product.name}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="card-title mb-1 product-name">${product.name}</h5>
+                            <span class="badge ${product.stock > 5 ? 'bg-success' : 'bg-warning text-dark'}">${product.stock > 5 ? 'In Stock' : 'Low Stock'}</span>
+                        </div>
+                        <p class="card-text text-muted small product-desc">${product.description}</p>
+                        <h6 class="mb-3">$${product.price.toFixed(2)}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted small">Stock: ${product.stock}</span>
+                            <div class="btn-group btn-action">
+                                <button class="btn btn-sm btn-outline-primary btn-edit">
+                                    Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger btn-delete">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners
+            const card = col.querySelector('.product-card');
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.btn-action')) {
+                    viewProductDetails(product.id);
+                }
+            });
+            
+            col.querySelector('.btn-edit').addEventListener('click', function(e) {
+                e.stopPropagation();
+                editProduct(product.id);
+            });
+            
+            col.querySelector('.btn-delete').addEventListener('click', function(e) {
+                e.stopPropagation();
+                confirmDeleteProduct(product.id);
+            });
+            
+            return col;
+        }
+
+        function setupPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+            
+            if (pageCount <= 1) return;
+            
+            // Previous button
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+            prevLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderProducts();
+                    setupPagination();
+                }
+            });
+            pagination.appendChild(prevLi);
+            
+            // Page numbers
+            for (let i = 1; i <= pageCount; i++) {
+                const pageLi = document.createElement('li');
+                pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                pageLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    renderProducts();
+                    setupPagination();
+                });
+                pagination.appendChild(pageLi);
+            }
+            
+            // Next button
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${currentPage === pageCount ? 'disabled' : ''}`;
+            nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+            nextLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage < pageCount) {
+                    currentPage++;
+                    renderProducts();
+                    setupPagination();
+                }
+            });
+            pagination.appendChild(nextLi);
+        }
+
+        function viewProductDetails(productId) {
+            // In a real app, this would fetch product details from an API
+            console.log('Viewing product:', productId);
+            window.location.href = `product-details.html?id=${productId}`;
+        }
+
+        function editProduct(productId) {
+            // In a real app, this would open an edit form with product data
+            console.log('Editing product:', productId);
+            window.location.href = `product-form.html?id=${productId}`;
+        }
+
+        function confirmDeleteProduct(productId) {
+            const modal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
+            const confirmBtn = document.getElementById('confirmDeleteProduct');
+            
+            // Set up event listener for confirmation
+            confirmBtn.onclick = function() {
+                deleteProduct(productId);
+                modal.hide();
+            };
+            
+            modal.show();
+        }
+
+        function deleteProduct(productId) {
+            // Show loading state
+            const btn = document.querySelector(`.product-card[data-product-id="${productId}"] .btn-delete`);
+            if (!btn) return;
+            
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Remove from products array
+                const index = products.findIndex(p => p.id === productId);
+                if (index !== -1) {
+                    products.splice(index, 1);
+                }
+                
+                // Update filtered products
+                const filteredIndex = filteredProducts.findIndex(p => p.id === productId);
+                if (filteredIndex !== -1) {
+                    filteredProducts.splice(filteredIndex, 1);
+                }
+                
+                // Re-render
+                currentPage = 1;
+                renderProducts();
+                setupPagination();
+                
+                showToast('Product deleted successfully', 'success');
+            }, 1000);
+        }
+
+        function saveProduct() {
+            const form = document.getElementById('productForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
+            // Get form values
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('productStock').value);
+            const image = document.getElementById('productImage').value || 'placeholder.jpg';
+            const description = document.getElementById('productDescription').value;
+
+            // Create new product
+            const newProduct = {
+                id: Date.now(),
+                name,
+                category,
+                price,
+                stock,
+                image,
+                description
+            };
+
+            // Add to products array
+            products.unshift(newProduct);
+            
+            // Update filtered products if needed
+            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            
+            const matchesSearch = name.toLowerCase().includes(searchTerm) || 
+                                description.toLowerCase().includes(searchTerm);
+            const matchesCategory = categoryFilter === 'all' || category === categoryFilter;
+            
+            if (matchesSearch && matchesCategory) {
+                filteredProducts.unshift(newProduct);
+            }
+
+            // Close modal and show success message
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+            modal.hide();
+            showToast('Product added successfully', 'success');
+
+            // Reset form
+            form.reset();
+            form.classList.remove('was-validated');
+
+            // Re-render
+            currentPage = 1;
+            renderProducts();
+            setupPagination();
+        }
+
+        function showToast(message, type) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastEl = document.createElement('div');
+            
+            toastEl.className = `toast align-items-center text-white bg-${type} border-0`;
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            
+            toastEl.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toastEl);
+            
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+            
+            // Remove toast after it hides
+            toastEl.addEventListener('hidden.bs.toast', function() {
+                toastEl.remove();
+            });
+        }
+    </script>
+</body>
+</html>
